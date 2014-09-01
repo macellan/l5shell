@@ -1,22 +1,22 @@
 {
     "name": "netson/l4shell",
     "type": "library",
-    "description": "Add shell command wrapper to Laravel 4",
+    "description": "Add shell command wrapper to Laravel 4.*",
     "homepage": "https://github.com/netson/l4shell",
     "keywords": ["laravel", "shell", "exec"],
     "license": "MIT",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "authors": [
         {
-            "name": "rsonnenberg",
-            "email": "r.sonnenberg@netson.nl",
-            "homepage": "https://github.com/netson",
+            "name": "sprik",
+            "email": "pietroalberto.rossi@gmail.com",
+            "homepage": "https://github.com/sprik",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.x"
     },
     "require-dev": {
         "orchestra/testbench": "2.0.*",
