@@ -1,8 +1,8 @@
 {
-    "name": "netson/l4shell",
+    "name": "sprik/l4shell",
     "type": "library",
     "description": "Add shell command wrapper to Laravel 4.*",
-    "homepage": "https://github.com/netson/l4shell",
+    "homepage": "https://github.com/sprik/l4shell",
     "keywords": ["laravel", "shell", "exec"],
     "license": "MIT",
     "version": "1.2.1",
