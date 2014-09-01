@@ -180,6 +180,21 @@ class Command {
         return $this;
 
     }
+    
+    /**
+     * method to clear any previous result
+     *
+     * @return \Netson\L4shell\Command
+     */
+    public function clearResult ()
+    {
+        // clear existing arguments
+        $this->result = array();
+
+        // return object to allow chaining
+        return $this;
+
+    }
 
     /**
      * method to execute the set command
