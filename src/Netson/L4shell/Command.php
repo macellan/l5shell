@@ -52,6 +52,13 @@ class Command {
     protected $devnull = "";
 
     /**
+     * variable used to work on background
+     *
+     * @var string
+     */
+    protected $runbg = "";
+
+    /**
      * array that holds allowed characters which will NOT be escaped
      *
      * @var array
@@ -180,7 +187,7 @@ class Command {
         return $this;
 
     }
-    
+
     /**
      * method to clear any previous result
      *
@@ -298,6 +305,23 @@ class Command {
     }
 
     /**
+     * method to allow run at background
+     *
+     * @param boolean $enable
+     */
+    public function runBackground ($enable = true)
+    {
+        if ($enable === true)
+            $this->runbg = " &";
+        else
+            $this->runbg = "";
+
+        // allow object chaining
+        return $this;
+
+    }
+
+    /**
      * method to return the command as a string
      *
      * @return string
@@ -321,7 +345,7 @@ class Command {
             $this->command = trim($this->getExecutablePath()) . trim($this->command);
 
         // replace argument placeholder with escaped argument
-        $command = vsprintf($this->command, $this->getArguments()) . $this->devnull;
+        $command = vsprintf($this->command, $this->getArguments()) . $this->devnull . $this->runbg;
 
         // check for allowed characters
         return $this->unescapeAllowedCharacters($command);
@@ -330,7 +354,7 @@ class Command {
 
     /**
      * method to fetch the set arguments
-     * 
+     *
      * @return array
      */
     public function getArguments ()

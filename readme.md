@@ -1,21 +1,26 @@
 # L4shell: Shell Commands for Laravel 4 #
 
-This laravel 4 package is a simple wrapper class for shell commands (exec). It allows you to add exec() commands to your application without losing the ability to write unit tests. The package comes with a Facade, so using Mockery for testing purposes is a breeze.
+This laravel 4 package is **another fork of** a simple wrapper class for shell commands (exec). It allows you to add exec() commands to your application without losing the ability to write unit tests. The package comes with a Facade, so using Mockery for testing purposes is a breeze.
 
 This package will **not** work on Windows systems.
+
+## Feature Added ##
+
+This fork simply add runBackground() method. Please use with caution, this may not suitable for you.
+
 
 ## Installation ##
 
 Simply use composer:
 
-```$ php composer.phar require netson/l4shell:1.2.* ```
+```$ php composer.phar require iyank4/l4shell:1.2.2 ```
 
 Or add the requirement to the composer.json file manually:
 
 
 ```
 "require": {
-     "netson/l4shell": "1.2.x"
+     "iyank4/l4shell": "1.2.2"
 }
 ```
 
@@ -95,7 +100,7 @@ $result = $command->setCommand("hostname")->sendToDevNull()->execute(); // will 
 
 ### Sample command: enable logging of all commands ###
 
-L4shell allows you to easily log all calls to shell commands to the default laravel log. By default, logging is **enabled**. Logging uses the default Laravel 4 logging package ([Monolog](http://laravel.com/docs/errors#logging "Monolog")). 
+L4shell allows you to easily log all calls to shell commands to the default laravel log. By default, logging is **enabled**. Logging uses the default Laravel 4 logging package ([Monolog](http://laravel.com/docs/errors#logging "Monolog")).
 
 For each successful command, 3 or 4 log lines will appear, depending on whether arguments have been set:
 
@@ -106,9 +111,9 @@ For each successful command, 3 or 4 log lines will appear, depending on whether 
 
 To disable logging, publish the package config file:
 
-```$ php artisan config:publish netson/l4shell```
+```$ php artisan config:publish iyank4/l4shell```
 
-And then change the ```enable_logging``` option in the ```app/config/packages/netson/l4shell/config.php``` file.
+And then change the ```enable_logging``` option in the ```app/config/packages/iyank4/l4shell/config.php``` file.
 
 **Alternatively**, you can change the logging settings at runtime:
 
@@ -184,4 +189,4 @@ public function tearDown ()
 ```
 For more information on unit testing with laravel 4, check out the following docs:
 * [https://github.com/padraic/mockery](https://github.com/padraic/mockery "Mockery")
-* [http://laravel.com/docs/testing](http://laravel.com/docs/testing "Laravel 4 Docs - Unit Testing") 
+* [http://laravel.com/docs/testing](http://laravel.com/docs/testing "Laravel 4 Docs - Unit Testing")
