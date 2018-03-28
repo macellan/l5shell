@@ -23,7 +23,6 @@ class L4shellServiceProvider extends ServiceProvider {
 
         // include custom exceptions
         include_once __DIR__ . '/Exceptions.php';
-
     }
 
     /**
@@ -35,15 +34,14 @@ class L4shellServiceProvider extends ServiceProvider {
     {
         // register L4shell
         $this->app['l4shell'] = $this->app->share(function($app) {
-                    return new Command();
-                });
+            return new Command();
+        });
 
         // Shortcut so developers don't need to add an Alias in app/config/app.php
         $this->app->booting(function() {
-                    $loader = AliasLoader::getInstance();
-                    $loader->alias('L4shell', 'Netson\L4shell\Facades\Command');
-                });
-
+            $loader = AliasLoader::getInstance();
+            $loader->alias('L4shell', 'Netson\L4shell\Facades\Command');
+        });
     }
 
     /**
@@ -53,8 +51,7 @@ class L4shellServiceProvider extends ServiceProvider {
      */
     public function provides ()
     {
-        return array('L4shell');
-
+        return ['L4shell'];
     }
 
 }

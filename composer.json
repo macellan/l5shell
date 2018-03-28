@@ -1,19 +1,11 @@
 {
-    "name": "iyank4/l4shell",
+    "name": "bcalik/l4shell",
     "type": "library",
     "description": "Another fork of L4shell - Add shell command wrapper to Laravel 4.*",
-    "homepage": "https://github.com/iyank4/l4shell",
+    "homepage": "https://github.com/bcalik/l4shell",
     "keywords": ["laravel", "shell", "exec"],
     "license": "MIT",
-    "version": "1.2.2",
-    "authors": [
-        {
-            "name": "Iyan Kushardiansah",
-            "email": "iyank4@gmail.com",
-            "homepage": "https://github.com/iyank4/l4shell-p",
-            "role": "Developer"
-        }
-    ],
+    "version": "1.3.0",
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.x"

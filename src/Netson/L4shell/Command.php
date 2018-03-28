@@ -1,4 +1,5 @@
 <?php
+
 namespace Netson\L4shell;
 
 use Config;
@@ -28,7 +29,7 @@ class Command {
      *
      * @var array
      */
-    protected $arguments = array();
+    protected $arguments = [];
 
     /**
      * variable that will contain the exit status of the executed command, after executing
@@ -42,7 +43,7 @@ class Command {
      *
      * @var array
      */
-    protected $result = array();
+    protected $result = [];
 
     /**
      * variable used to send output to /dev/null
@@ -63,7 +64,7 @@ class Command {
      *
      * @var array
      */
-    protected $allowed_characters = array();
+    protected $allowed_characters = [];
 
     /**
      * variable that contains the path which will be cd'd to before executing the command
@@ -94,7 +95,7 @@ class Command {
      *
      * @param string $locale
      */
-    public function __construct ($command = null, array $arguments = array())
+    public function __construct ($command = null, array $arguments = [])
     {
         // set logging from config file
         $this->setLogging(Config::get("l4shell::config.enable_logging"));
@@ -107,7 +108,6 @@ class Command {
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -119,7 +119,6 @@ class Command {
     {
         // return
         return $this;
-
     }
 
     /**
@@ -138,12 +137,11 @@ class Command {
 
             // add to log
             if ($this->logging)
-                Log::info("Command set to: " . $this->command, array("context" => "l4shell"));
+                Log::debug("Command set to: " . $this->command, ["context" => "l4shell"]);
         }
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -166,11 +164,10 @@ class Command {
 
             // log
             if ($this->logging)
-                Log::info("Arguments for command set to: " . implode(" | ", $this->arguments), array("context" => "l4shell"));
+                Log::debug("Arguments for command set to: " . implode(" | ", $this->arguments), ["context" => "l4shell"]);
         }
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -181,11 +178,10 @@ class Command {
     public function clearArguments ()
     {
         // clear existing arguments
-        $this->arguments = array();
+        $this->arguments = [];
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -196,11 +192,10 @@ class Command {
     public function clearResult ()
     {
         // clear existing arguments
-        $this->result = array();
+        $this->result = [];
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -228,7 +223,7 @@ class Command {
 
         // log
         if ($this->logging)
-            Log::info("Executing command: " . $command, array("context" => "l4shell"));
+            Log::debug("Executing command: " . $command, ["context" => "l4shell"]);
 
         // execute command
         @exec($command, $this->result, $this->exit_status);
@@ -244,7 +239,8 @@ class Command {
         if ($this->exit_status === 0)
         {
             // log success
-            Log::info("Command [{$command}] successfully executed", array("l4shell"));
+            if ($this->logging)
+                Log::debug("Command [{$command}] successfully executed", ["l4shell"]);
 
             // return
             return $result;
@@ -254,19 +250,22 @@ class Command {
         switch ($this->exit_status)
         {
             case 2:
-                Log::error("The given command was used incorrectly (exit status 2) - [{$command}]", array("l4shell"));
+                Log::error("The given command was used incorrectly (exit status 2) - [{$command}]", ["l4shell"]);
                 throw new InvalidUsageException("The given command was used incorrectly (exit status 2) - [{$command}]");
                 break;
+
             case 127:
-                Log::error("The given command could not be found (exit status 127) - [{$command}]", array("l4shell"));
+                Log::error("The given command could not be found (exit status 127) - [{$command}]", ["l4shell"]);
                 throw new CommandNotFoundException("The given command could not be found (exit status 127) - [{$command}]");
                 break;
+
             case 126:
-                Log::error("The given command is not executable (exit status 126) - [{$command}]", array("l4shell"));
+                Log::error("The given command is not executable (exit status 126) - [{$command}]", ["l4shell"]);
                 throw new NonExecutableCommandException("The given command is not executable (exit status 126) - [{$command}]");
                 break;
+
             default:
-                Log::error("The given command could not be executed (exit status {$this->exit_status}) - [{$command}]", array("l4shell"));
+                Log::error("The given command could not be executed (exit status {$this->exit_status}) - [{$command}]", ["l4shell"]);
                 throw new UnknownException("The given command could not be executed (exit status {$this->exit_status}) - [{$command}]");
                 break;
         }
@@ -284,7 +283,6 @@ class Command {
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -301,7 +299,6 @@ class Command {
 
         // allow object chaining
         return $this;
-
     }
 
     /**
@@ -318,7 +315,6 @@ class Command {
 
         // allow object chaining
         return $this;
-
     }
 
     /**
@@ -349,7 +345,6 @@ class Command {
 
         // check for allowed characters
         return $this->unescapeAllowedCharacters($command);
-
     }
 
     /**
@@ -361,7 +356,6 @@ class Command {
     {
         // return
         return $this->arguments;
-
     }
 
     /**
@@ -372,7 +366,6 @@ class Command {
     public function __toString ()
     {
         return (string) $this->getCommand();
-
     }
 
     /**
@@ -383,17 +376,17 @@ class Command {
      * @param array $characters
      * @return \Netson\L4shell\Command
      */
-    public function setAllowedCharacters (array $characters = array())
+    public function setAllowedCharacters (array $characters = [])
     {
         // log this activity and print to screen
-        Log::info("Setting allowed characters: " . implode(" - ", $characters), array("l4shell"));
+        if ($this->logging)
+            Log::debug("Setting allowed characters: " . implode(" - ", $characters), ["l4shell"]);
 
         // set characters
         $this->allowed_characters = $characters;
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -417,7 +410,6 @@ class Command {
 
         // return command
         return $command;
-
     }
 
     /**
@@ -438,11 +430,10 @@ class Command {
 
         // log
         if ($this->logging)
-            Log::info("Execution path set to: " . $path, array("context" => "l4shell"));
+            Log::debug("Execution path set to: " . $path, ["context" => "l4shell"]);
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -453,7 +444,6 @@ class Command {
     public function getExecutionPath ()
     {
         return self::$execution_path;
-
     }
 
     /**
@@ -474,11 +464,10 @@ class Command {
 
         // log
         if ($this->logging)
-            Log::info("Executable path set to: " . $path, array("context" => "l4shell"));
+            Log::debug("Executable path set to: " . $path, ["context" => "l4shell"]);
 
         // return object to allow chaining
         return $this;
-
     }
 
     /**
@@ -489,7 +478,6 @@ class Command {
     public function getExecutablePath ()
     {
         return self::$executable_path;
-
     }
 
     /**
@@ -500,7 +488,6 @@ class Command {
     public function getCwd ()
     {
         return getcwd();
-
     }
 
     /**
@@ -523,11 +510,10 @@ class Command {
 
         // log
         if ($this->logging)
-            Log::info("Changing working directory / execution path to: " . $path, array("context" => "l4shell"));
+            Log::debug("Changing working directory / execution path to: " . $path, ["context" => "l4shell"]);
 
         // return
         return $this->getCwd();
-
     }
 
     /**
@@ -544,11 +530,10 @@ class Command {
 
         // log
         if ($this->logging)
-            Log::info("Reverting working directory / execution path to: " . $this->cwd, array("context" => "l4shell"));
+            Log::debug("Reverting working directory / execution path to: " . $this->cwd, ["context" => "l4shell"]);
 
         // return
         return getcwd();
-
     }
 
 }
