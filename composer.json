@@ -1,5 +1,5 @@
 {
-    "name": "bcalik/l4shell",
+    "name": "mertyildiran/l5shell",
     "type": "library",
     "description": "Another fork of L4shell - Add shell command wrapper to Laravel 4.*",
     "homepage": "https://github.com/bcalik/l4shell",
@@ -8,7 +8,7 @@
     "version": "1.3.0",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.x"
+        "illuminate/support": "^5.0"
     },
     "require-dev": {
         "orchestra/testbench": "2.0.*",
