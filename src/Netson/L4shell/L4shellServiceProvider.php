@@ -33,7 +33,7 @@ class L4shellServiceProvider extends ServiceProvider {
     public function register ()
     {
         // register L4shell
-        $this->app['l4shell'] = $this->app->share(function($app) {
+        $this->app->singleton('l4shell', function($app) {
             return new Command();
         });
 
