@@ -1,9 +1,9 @@
 {
-    "name": "mertyildiran/l5shell",
+    "name": "macellan/l5shell",
     "type": "library",
-    "description": "Another fork of L4shell - Add shell command wrapper to Laravel 4.*",
-    "homepage": "https://github.com/bcalik/l4shell",
-    "keywords": ["laravel", "shell", "exec"],
+    "description": "L5shell - Add shell command wrapper to Laravel 5.*",
+    "homepage": "http://github.com/macellan/l5shell",
+    "keywords": ["laravel", "shell", "exec", "macellan"],
     "license": "MIT",
     "version": "1.3.0",
     "require": {
